@@ -108,7 +108,6 @@ public class DownloadAccelerator {
 	    BufferedInputStream in = null;
 	    RandomAccessFile raf = null;
 	    try{
-		System.out.println(Thread.currentThread().getName()+ " started ");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		byteRange = startByte + "-" + endByte;
 		conn.setRequestProperty("Range","bytes="+byteRange);
@@ -117,6 +116,7 @@ public class DownloadAccelerator {
 		if(conn.getResponseCode()/100 != 2){
 		    error();
 		}
+		System.out.println(Thread.currentThread().getName()+ " started "+byteRange);
 		
 		in = new BufferedInputStream(conn.getInputStream());
 		raf = new RandomAccessFile(file, "rw");
@@ -127,7 +127,7 @@ public class DownloadAccelerator {
 		    raf.write(data,0,read);
 		    startByte += read;
 		}
-		System.out.println(Thread.currentThread().getName()+ " Completed ");
+		System.out.println(Thread.currentThread().getName()+ " Completed " +byteRange);
 	    }catch(Exception e){
 		System.out.println("failed to download segment" + byteRange);
 	    }finally{
