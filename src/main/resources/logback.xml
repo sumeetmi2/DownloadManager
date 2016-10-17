@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+	 <appender name="ROOTLOGGER" class="ch.qos.logback.core.FileAppender">
+        <file>D:/DownloadManager/downloadManager.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%date |%-5level| [%thread] [%file:%line] - %msg%n%ex{full}</pattern>
+        </encoder>
+    </appender>
+    <appender name="EXCEPTIONLOGGER" class="ch.qos.logback.core.FileAppender">
+        <file>D:/DownloadManager/downloadManager-exceptions.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%date |%-5level| [%thread] [%file:%line] - %msg%n%ex{full}</pattern>
+        </encoder>
+    </appender>
+    <!-- additivity=false ensures analytics data only goes to the analytics log -->
+    <logger name="exceptions" level="DEBUG" additivity="true">
+        <appender-ref ref="EXCEPTIONLOGGER"/>
+    </logger>
+    <root>
+        <appender-ref ref="ROOTLOGGER"/>
+    </root>
+</configuration>

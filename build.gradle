@@ -1,0 +1,67 @@
+buildscript {
+  ext {
+        springBootVersion = '1.2.5.RELEASE'
+        dozerVersion = '5.5.1'
+        swaggerVersion = '2.2.2'
+        jstlVersion = '1.2'
+        jsonVersion = '20140107'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+       classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+       classpath("io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+war {
+    baseName = 'DownloadManager'
+    version =  '1.0.0'
+}
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework:spring-test")
+    compile("io.springfox:springfox-swagger2:${swaggerVersion}")    
+    compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+    compile("javax.servlet:jstl:${jstlVersion}")
+    compile("org.json:json:${jsonVersion}") 
+    compile("org.springframework.boot:spring-boot-starter-security")
+    testCompile("org.springframework.boot:spring-boot-starter-test") 
+    providedRuntime ('org.apache.tomcat.embed:tomcat-embed-jasper')	
+	compile('org.springframework:spring-context-support:4.1.5.RELEASE')
+	compile group: 'commons-validator', name: 'commons-validator', version: '1.4.0'
+	compile group: 'commons-io', name: 'commons-io', version: '2.4'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+}
+eclipse {
+    classpath {
+         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
+}
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+task(runDebug, dependsOn: 'classes', type: JavaExec) {
+    main='com.downloadmanager.application.DownloadManagerApplication'
+    classpath = sourceSets.main.runtimeClasspath
+    jvmArgs = ["-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"]
+}
+
+configurations.all {
+    exclude module: 'slf4j-log4j12'
+}
