@@ -13,4 +13,7 @@ public class CommonConstants {
     public static final String HTTP = "http";
     public static final String FTP = "ftp";
     public static final String SFTP = "sftp";
+    
+    //need to make this configurable
+    public static final int PARALLEL_DOWNLOADS = 10;
 }
