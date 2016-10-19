@@ -17,8 +17,10 @@ public class DownloadDTO {
     private URL downloadUrl;
     private String saveFileLocation;
     private AuthObject authObject;
+    private String downloadId;
     
-    public DownloadDTO(URL downloadUrl,String saveFileLocation,AuthObject authObject){
+    public DownloadDTO(String downloadId,URL downloadUrl,String saveFileLocation,AuthObject authObject){
+	this.downloadId = downloadId;
 	this.downloadUrl = downloadUrl;
 	this.saveFileLocation= saveFileLocation;
 	this.authObject = authObject;
@@ -42,5 +44,10 @@ public class DownloadDTO {
         return authObject;
     }
     
-    
+    /**
+     * @return downloadId
+     */
+    public String getDownloadId(){
+	return downloadId;
+    }
 }

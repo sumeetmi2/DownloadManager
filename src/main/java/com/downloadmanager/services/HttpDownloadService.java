@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.downloadmanager.common.CommonConstants;
 import com.downloadmanager.common.DownloadDTO;
+import com.downloadmanager.common.DownloadStatus;
 import com.downloadmanager.download.executor.HttpDownloadHelperThread;
 import com.downloadmanager.download.executor.DownloadJobExecutorService;
 
@@ -36,6 +37,9 @@ public class HttpDownloadService implements DownloadService {
 
     @Autowired
     DownloadJobExecutorService downloadJobExecutorService;
+    
+    @Autowired
+    DownloadStatusService downloadStatusService;
 
     /*
      * (non-Javadoc)
@@ -43,13 +47,13 @@ public class HttpDownloadService implements DownloadService {
      */
     @Override
     public void download(DownloadDTO dto) throws Exception {
+	downloadStatusService.updateStatus(dto.getDownloadId(), DownloadStatus.INPROGRESS);
 	try {
 	    int fileSize = -1;
 	    File f = new File(dto.getSaveFileLocation());
 	    if (f.exists()) {
 		f.delete();
 	    }
-
 	    HttpURLConnection conn = (HttpURLConnection) dto.getDownloadUrl().openConnection();
 	    conn.setConnectTimeout(10000);
 	    conn.connect();
@@ -71,17 +75,20 @@ public class HttpDownloadService implements DownloadService {
 			* CommonConstants.BLOCK_SIZE;
 		int startByte = 0;
 		int endByte = chunkSize - 1;
+		int cnt =1;
 		downloadJobExecutorService
-			.execute(new HttpDownloadHelperThread(new URL(dto.getDownloadUrl().toString()), dto.getSaveFileLocation(), startByte, endByte));
+			.execute(new HttpDownloadHelperThread(new URL(dto.getDownloadUrl().toString()), dto.getSaveFileLocation(), startByte, endByte,dto.getDownloadId()+"-"+(cnt++),downloadStatusService));
 		while (endByte < fileSize) {
 		    startByte = endByte + 1;
 		    endByte += chunkSize;
-		    downloadJobExecutorService.execute(new HttpDownloadHelperThread(new URL(dto.getDownloadUrl().toString()), dto.getSaveFileLocation(), startByte, endByte));
+		    downloadJobExecutorService.execute(new HttpDownloadHelperThread(new URL(dto.getDownloadUrl().toString()), dto.getSaveFileLocation(), startByte, endByte,dto.getDownloadId()+"-"+(cnt++),downloadStatusService));
 		}
 	    } else {
 		FileUtils.copyURLToFile(dto.getDownloadUrl(), new File(dto.getSaveFileLocation()));
+		downloadStatusService.updateStatus(dto.getDownloadId(), DownloadStatus.DOWNLOADED);
 	    }
 	} catch (Exception e) {
+	    downloadStatusService.updateStatus(dto.getDownloadId(), DownloadStatus.FAILED);
 	    throw e;
 	}
     }

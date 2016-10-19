@@ -27,9 +27,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class DownloadManagerApplication extends SpringBootServletInitializer   {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(DownloadManagerApplication.class);
+        application.application().setRegisterShutdownHook(true);
+	return application.sources(DownloadManagerApplication.class);
     }
-
+    
     public static void main(String[] args) {
         SpringApplication.run(DownloadManagerApplication.class, args);
     } 

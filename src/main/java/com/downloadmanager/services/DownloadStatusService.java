@@ -5,11 +5,10 @@
  */
 package com.downloadmanager.services;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Service;
 
 import com.downloadmanager.common.DownloadStatus;
+import com.downloadmanager.objects.ChunkWrapper;
 
 /**
  * @author SumeetS
@@ -17,6 +16,7 @@ import com.downloadmanager.common.DownloadStatus;
  */
 @Service
 public interface DownloadStatusService {
-    public Map<String,String> getDownloadStatus(String key);
+    public String getDownloadStatus(String key);
     public void updateStatus(String key,DownloadStatus status);
+    public void updateChunkStatus(ChunkWrapper chunk,DownloadStatus status);
 }

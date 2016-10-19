@@ -7,7 +7,6 @@ package com.downloadmanager.common;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +20,16 @@ public class Validator {
     @Resource
     Environment environment;
     
+    /**
+     * 
+     * :TODO implement proper url validation
+     * @param url
+     * @return
+     */
     public boolean validateUrl(String url){
-	String[] schemes = environment.getRequiredProperty("protocols.supported").split(",");
-	UrlValidator urlValidator = new UrlValidator(schemes);
-	return urlValidator.isValid(url);
+//	String[] schemes = environment.getRequiredProperty("protocols.supported").split(",");
+//	UrlValidator urlValidator = new UrlValidator(schemes);
+//	return urlValidator.isValid(url);
+	return true;
     }
 }

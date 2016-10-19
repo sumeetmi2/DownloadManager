@@ -15,9 +15,10 @@ public class CommonConstants {
     public static final String SFTP = "sftp";
     
     //need to make this configurable
-    public static final int PARALLEL_DOWNLOADS = 10;
+    public static final int PARALLEL_DOWNLOADS = 7;
     public static final int BLOCK_SIZE = 8192;
-    public static final int MIN_DOWNLOAD_SIZE = 50*BLOCK_SIZE;
+    public static final int MIN_DOWNLOAD_SIZE = 10*BLOCK_SIZE;
     
     public static final int FTP_DEFAULT_PORT=21;
+    public static final String SEPARATOR = " :::: ";
 }

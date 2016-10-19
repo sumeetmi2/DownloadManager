@@ -16,7 +16,9 @@ import org.slf4j.LoggerFactory;
 
 import com.downloadmanager.common.CommonConstants;
 import com.downloadmanager.common.DownloadDTO;
+import com.downloadmanager.common.DownloadStatus;
 import com.downloadmanager.objects.AuthObject;
+import com.downloadmanager.services.DownloadStatusService;
 
 /**
  * @author SumeetS
@@ -26,12 +28,13 @@ public class FtpDownloadHelperThread implements Runnable {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(FtpDownloadHelperThread.class);
     private DownloadDTO dto;
-
+    private DownloadStatusService downloadStatusService;
     /**
      * 
      */
-    public FtpDownloadHelperThread(DownloadDTO dto) {
+    public FtpDownloadHelperThread(DownloadDTO dto,DownloadStatusService downloadStatusService) {
 	this.dto = dto;
+	this.downloadStatusService = downloadStatusService;
     }
 
     /*
@@ -63,7 +66,9 @@ public class FtpDownloadHelperThread implements Runnable {
 
 	    ftpClient.logout();
 	    ftpClient.disconnect();
+	    downloadStatusService.updateStatus(dto.getDownloadId(), DownloadStatus.DOWNLOADED);
 	} catch (Exception e) {
+	    downloadStatusService.updateStatus(dto.getDownloadId(), DownloadStatus.FAILED);
 	    LOGGER.error("unable to download ftp file: " + dto.getSaveFileLocation() + " ::"+e.getMessage());
 	}
 

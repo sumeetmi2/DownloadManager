@@ -46,6 +46,7 @@ public class WebConfig extends WebMvcAutoConfigurationAdapter {
     @Resource
     Environment environment;
 
+    
     @Bean
     public LocaleResolver localeResolver() {
 	SessionLocaleResolver localeResolver = new SessionLocaleResolver();
