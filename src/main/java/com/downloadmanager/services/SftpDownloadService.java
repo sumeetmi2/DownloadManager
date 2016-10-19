@@ -7,7 +7,7 @@ package com.downloadmanager.services;
 
 import org.springframework.stereotype.Service;
 
-import com.downloadmanager.common.DownloadDTO;
+import com.downloadmanager.objects.DownloadDTO;
 
 /**
  * @author SumeetS

@@ -3,8 +3,9 @@
  * Created on Oct 18, 2016
  *
  */
-package com.downloadmanager.common;
+package com.downloadmanager.objects;
 
+import java.io.Serializable;
 import java.net.URL;
 
 import com.downloadmanager.objects.AuthObject;
@@ -13,7 +14,12 @@ import com.downloadmanager.objects.AuthObject;
  * @author SumeetS
  *
  */
-public class DownloadDTO {
+public class DownloadDTO implements Serializable{
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private URL downloadUrl;
     private String saveFileLocation;
     private AuthObject authObject;

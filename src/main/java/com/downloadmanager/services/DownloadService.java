@@ -3,7 +3,7 @@
  */
 package com.downloadmanager.services;
 
-import com.downloadmanager.common.DownloadDTO;
+import com.downloadmanager.objects.DownloadDTO;
 
 /**
  * @author SumeetS

@@ -18,10 +18,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.downloadmanager.common.CommonConstants;
-import com.downloadmanager.common.DownloadDTO;
 import com.downloadmanager.common.DownloadStatus;
-import com.downloadmanager.download.executor.HttpDownloadHelperThread;
 import com.downloadmanager.download.executor.DownloadJobExecutorService;
+import com.downloadmanager.download.executor.HttpDownloadHelperThread;
+import com.downloadmanager.objects.DownloadDTO;
 
 /**
  * @author SumeetS

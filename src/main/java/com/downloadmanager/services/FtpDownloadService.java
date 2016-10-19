@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import com.downloadmanager.common.DownloadDTO;
 import com.downloadmanager.common.DownloadStatus;
 import com.downloadmanager.download.executor.DownloadJobExecutorService;
 import com.downloadmanager.download.executor.FtpDownloadHelperThread;
 import com.downloadmanager.objects.AuthObject;
+import com.downloadmanager.objects.DownloadDTO;
 
 /**
  * @author SumeetS

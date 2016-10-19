@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.downloadmanager.common.DownloadDTO;
+import com.downloadmanager.objects.DownloadDTO;
 import com.downloadmanager.services.DownloadService;
 import com.downloadmanager.services.DownloadServiceFactory;
 

@@ -15,17 +15,19 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.downloadmanager.common.DownloadDTO;
 import com.downloadmanager.common.DownloadStatus;
 import com.downloadmanager.common.UUIDGenerator;
 import com.downloadmanager.common.Utils;
 import com.downloadmanager.common.Validator;
 import com.downloadmanager.download.executor.DownloadJobExecutorService;
 import com.downloadmanager.objects.AuthObject;
+import com.downloadmanager.objects.DownloadDO;
+import com.downloadmanager.objects.DownloadDTO;
 import com.downloadmanager.services.DownloadStatusService;
 
 /**
@@ -57,10 +59,12 @@ public class DownloadController extends BaseController {
     UUIDGenerator uUIDGenerator;
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<?> download(@RequestParam(value = "url", required = true) String downloadUrl,
-	    @RequestParam(value = "save", required = true) String saveLocation, @RequestParam(value = "userName", required = false) String userName,
-	    @RequestParam(value = "password", required = false) String password) {
+    public ResponseEntity<?> download(@RequestBody DownloadDO downloadDO) {
 	long timetaken = 0;
+	String downloadUrl = downloadDO.getDownloadUrl();
+	String saveLocation = downloadDO.getSaveFileLocation();
+	String userName = downloadDO.getUserName();
+	String password = downloadDO.getPassword();
 	DownloadDTO dto = null;
 	if (validator.validateUrl(downloadUrl)) {
 	    try {

@@ -15,9 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.downloadmanager.common.CommonConstants;
-import com.downloadmanager.common.DownloadDTO;
 import com.downloadmanager.common.DownloadStatus;
 import com.downloadmanager.objects.AuthObject;
+import com.downloadmanager.objects.DownloadDTO;
 import com.downloadmanager.services.DownloadStatusService;
 
 /**
