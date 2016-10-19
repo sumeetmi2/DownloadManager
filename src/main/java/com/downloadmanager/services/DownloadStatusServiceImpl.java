@@ -71,6 +71,10 @@ public class DownloadStatusServiceImpl implements DownloadStatusService{
 	    updateStatus(key, status);
 	    value = status.toString();
 	}
+	if(DownloadStatus.FAILED.toString().equals(value)){
+	    File f = new File(uUIDGenerator.getFileNameFromUuid(key));
+	    f.delete();
+	}
 	return value;
     }
 
